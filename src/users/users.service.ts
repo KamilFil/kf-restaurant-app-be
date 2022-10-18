@@ -1,20 +1,60 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import {User} from "./entities/user.entity";
+import { RegisterUserDto } from './dto/register-user.dto';
+import { User } from './entities/user.entity';
+import * as bcrypt from 'bcrypt';
+import { configEnv } from '../config/config';
+import { UserLogin } from '../../types/users/user-entity';
 
 @Injectable()
 export class UsersService {
-  async createUsers(createUserDto: CreateUserDto) {
-    return `This action returns all users`;
+  async register(userRegister: RegisterUserDto) {
+    const results = await User.findOne({
+      where: { email: userRegister.email },
+    });
+
+    if (results) {
+      throw new Error('Problem z użytkownikiem');
+    }
+
+    const hashPw = await bcrypt.hash(
+      userRegister.password,
+      configEnv.SALT_COUNT,
+    );
+
+    const user = new User();
+    user.username = userRegister.username;
+    user.password = hashPw;
+    user.age = Number(userRegister.age);
+    user.email = userRegister.email;
+    await user.save();
+    return user;
+  }
+
+  async login(userLogin: UserLogin) {
+    const results = await User.findOne({
+      where: { email: userLogin.email },
+    });
+
+    const checkUser = await bcrypt.compare(
+      userLogin.password,
+      results.password,
+    );
+
+    if (checkUser) {
+      console.log('zalogowano');
+      return results;
+    } else {
+      console.log('niezalogowny');
+    }
   }
 
   findAll() {
-    return `This action returns all users`;
+    return `Znajdź wszystkich użytkowników`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string): Promise<User> {
+    return await User.findOne({ where: { id } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
