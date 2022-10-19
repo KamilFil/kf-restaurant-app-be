@@ -32,18 +32,15 @@ export class UsersService {
   }
 
   async login(userLogin: UserLogin) {
-    const results = await User.findOne({
+    const user = await User.findOne({
       where: { email: userLogin.email },
     });
 
-    const checkUser = await bcrypt.compare(
-      userLogin.password,
-      results.password,
-    );
+    const checkUser = await bcrypt.compare(userLogin.password, user.password);
 
     if (checkUser) {
       console.log('zalogowano');
-      return results;
+      return user;
     } else {
       console.log('niezalogowny');
     }
