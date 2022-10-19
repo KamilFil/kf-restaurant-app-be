@@ -17,33 +17,36 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('/register')
-  register(@Body() userRegister: RegisterUserDto) {
+  registerUser(@Body() userRegister: RegisterUserDto) {
     console.log(userRegister);
-    return this.usersService.register(userRegister);
+    return this.usersService.registerUser(userRegister);
   }
 
   @Post('/login')
-  login(@Body() userLogin: UserLogin) {
-    return this.usersService.login(userLogin);
+  loginUser(@Body() userLogin: UserLogin) {
+    //Stworzyć odpowiednią walidację.
+    return this.usersService.loginUser(userLogin);
   }
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  getAllUsers() {
+    return this.usersService.getAllUsers();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  getOneUser(@Param('id') id: string) {
+    //Stworzyć odpowiednią walidację.
+    return this.usersService.getOneUser(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  updateUser(@Param('id') id: string, @Body() updateUser: UpdateUserDto) {
+    //Stworzyć odpowiednią walidację.
+    return this.usersService.updateUser(id, updateUser);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  removeUser(@Param('id') id: string) {
+    return this.usersService.removeUser(id);
   }
 }

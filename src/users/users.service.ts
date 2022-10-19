@@ -8,7 +8,7 @@ import { UserLogin } from '../../types/users/user-entity';
 
 @Injectable()
 export class UsersService {
-  async register(userRegister: RegisterUserDto) {
+  async registerUser(userRegister: RegisterUserDto) {
     const results = await User.findOne({
       where: { email: userRegister.email },
     });
@@ -31,7 +31,7 @@ export class UsersService {
     return user;
   }
 
-  async login(userLogin: UserLogin) {
+  async loginUser(userLogin: UserLogin) {
     const user = await User.findOne({
       where: { email: userLogin.email },
     });
@@ -46,19 +46,26 @@ export class UsersService {
     }
   }
 
-  findAll() {
-    return `Znajdź wszystkich użytkowników`;
+  async getAllUsers() {
+    return await User.find();
   }
 
-  async findOne(id: string): Promise<User> {
+  async getOneUser(id: string): Promise<User> {
     return await User.findOne({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async updateUser(id: string, updateUser: UpdateUserDto) {
+    const user = await User.findOne({ where: { id } });
+
+    await User.update(id, updateUser);
+
+    return user.id;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async removeUser(id: string) {
+    const user = await User.findOne({ where: { id } });
+    await User.delete({ id: id });
+
+    return user.id;
   }
 }
