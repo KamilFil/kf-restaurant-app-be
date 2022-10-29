@@ -1,4 +1,5 @@
 export const configEnv = {
-  SALT: 's0/\\/\\P4$$w0rD',
-  SALT_COUNT: 10,
+  hashSha: 'sha512',
+  hashSalt: 'dad1e21e21d2d2112d@2@#@!DWAdw wawdw@#@#@!',
+  jwtKey: 'adw2da2 ed1 21 32 1 @@ @ 13e21 3e !!! @ @!E!',
 };
