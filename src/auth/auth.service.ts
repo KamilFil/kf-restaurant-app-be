@@ -76,7 +76,7 @@ export class AuthService {
         httpOnly: true,
       });
 
-      return res.json({ ok: true });
+      return { url: 'login' };
     } catch (e) {
       return res.json({ error: e.message });
     }

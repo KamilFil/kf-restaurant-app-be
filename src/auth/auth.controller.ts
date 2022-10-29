@@ -1,4 +1,12 @@
-import { Controller, Post, UseGuards, Get, Res, Body } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  UseGuards,
+  Get,
+  Res,
+  Body,
+  Redirect,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UserLogin } from '../../types/users/user-entity';
 import { Response } from 'express';
@@ -10,12 +18,18 @@ import { AuthGuard } from '@nestjs/passport';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Get('login')
+  async getLogin() {
+    return '/login';
+  }
+
   @Post('login')
   async login(@Body() req: UserLogin, @Res() res: Response): Promise<any> {
     return this.authService.login(req, res);
   }
 
   @Get('logout')
+  @Redirect()
   @UseGuards(AuthGuard('jwt'))
   async logout(@UserObj() user: User, @Res() res: Response) {
     return this.authService.logout(user, res);
