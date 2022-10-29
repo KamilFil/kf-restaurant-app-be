@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { EmailSendingService } from './email-sending/email-sending.service';
+import { testTemplate } from './templates/email/test-template';
 
 @Injectable()
 export class AppService {
@@ -12,7 +13,7 @@ export class AppService {
     await this.emailSendingService.sendMail(
       'email@ema.pl',
       'Dziękujemy za dodanie do koszyka',
-      `Dodano do koszyka`,
+      testTemplate(),
     );
 
     return 'Hello World!';
