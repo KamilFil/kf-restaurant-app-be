@@ -29,5 +29,5 @@ export class User extends BaseEntity {
   @Column({
     default: Role.User,
   })
-  role: Role[];
+  role: Role;
 }
