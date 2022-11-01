@@ -4,6 +4,7 @@ import { RegisterUserDto } from './dto/register-user.dto';
 import { Response } from 'express';
 import { User } from './entities/user.entity';
 import { hashPwd } from '../utils/hashPwd';
+import { Role } from 'types';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,7 @@ export class UsersService {
     user.password = hashPwd(userRegister.password);
     user.age = Number(userRegister.age);
     user.email = userRegister.email;
+    user.role = Role.User;
     await user.save();
     const { username } = user;
     return res.json({ username });
