@@ -18,6 +18,10 @@ import { RolesGuard } from '../guards/role.guard';
 import { Roles } from 'src/decorators/role.decorator';
 import { Role } from '../../types';
 
+import { CheckAbility } from 'src/casl/casl-ability.decorator';
+import { RulesGuard } from 'src/casl/casl-ability.guard';
+import { ReadOnlyUser } from '../casl/types/casl-interface';
+
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -40,6 +44,8 @@ export class UsersController {
   }
 
   @Patch(':id')
+  @UseGuards(AuthGuard('jwt'), RulesGuard)
+  @CheckAbility(new ReadOnlyUser())
   updateUser(@Param('id') id: string, @Body() updateUser: UpdateUserDto) {
     return this.usersService.updateUser(id, updateUser);
   }

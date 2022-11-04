@@ -48,6 +48,7 @@ export class UsersService {
     if (!user) {
       throw new Error('Brak użytkownika o podanym ID - Update');
     }
+
     await User.update(id, updateUser);
 
     return user.id;
