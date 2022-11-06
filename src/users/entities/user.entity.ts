@@ -1,4 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from 'types';
 
 @Entity()
 export class User extends BaseEntity {
@@ -19,6 +20,14 @@ export class User extends BaseEntity {
   @Column()
   age: number;
 
-  @Column()
-  role: number;
+  @Column({
+    nullable: true,
+    default: null,
+  })
+  currentTokenId: string | null;
+
+  @Column({
+    default: Role.User,
+  })
+  role: Role;
 }
