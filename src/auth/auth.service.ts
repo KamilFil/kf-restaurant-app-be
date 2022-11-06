@@ -6,7 +6,7 @@ import { JwtPayload } from './strategy/jwt.stretegy';
 import { sign } from 'jsonwebtoken';
 import { configEnv } from '../config/config';
 import { v4 as uuid } from 'uuid';
-import { hashPwd } from '../utils/hashPwd';
+import { hashPwd } from '../common/utils/hashPwd';
 
 @Injectable()
 export class AuthService {

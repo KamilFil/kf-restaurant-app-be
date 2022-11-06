@@ -10,7 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { UserLogin } from '../../types/users/user-entity';
 import { Response } from 'express';
-import { UserObj } from '../decorators/user-object.decorator';
+import { UserObj } from '../common/decorators/user-object.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { AuthGuard } from '@nestjs/passport';
 

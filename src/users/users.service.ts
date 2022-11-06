@@ -3,7 +3,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { Response } from 'express';
 import { User } from './entities/user.entity';
-import { hashPwd } from '../utils/hashPwd';
+import { hashPwd } from '../common/utils/hashPwd';
 import { Role } from 'types';
 
 @Injectable()
