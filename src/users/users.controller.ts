@@ -20,7 +20,7 @@ import { Role } from '../../types';
 
 import { CheckAbility } from 'src/casl/casl-ability.decorator';
 import { RulesGuard } from 'src/casl/casl-ability.guard';
-import { ReadOnlyUser } from '../casl/types/casl-interface';
+import { UpdateOnlyUser } from '../casl/types/casl-interface';
 
 @Controller('users')
 export class UsersController {
@@ -45,7 +45,7 @@ export class UsersController {
 
   @Patch(':id')
   @UseGuards(AuthGuard('jwt'), RulesGuard)
-  @CheckAbility(new ReadOnlyUser())
+  @CheckAbility(new UpdateOnlyUser())
   updateUser(@Param('id') id: string, @Body() updateUser: UpdateUserDto) {
     return this.usersService.updateUser(id, updateUser);
   }

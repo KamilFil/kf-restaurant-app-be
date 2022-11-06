@@ -15,3 +15,8 @@ export class ReadOnlyUser implements IPolicyHandler {
     return ability.can(Action.Read, User);
   }
 }
+export class UpdateOnlyUser implements IPolicyHandler {
+  handle(ability: AppAbility) {
+    return ability.can(Action.Update, 'all');
+  }
+}
