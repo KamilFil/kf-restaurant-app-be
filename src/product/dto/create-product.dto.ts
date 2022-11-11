@@ -9,6 +9,4 @@ export class CreateProductDto {
   product_photo_alt: string;
   @IsNumber()
   product_price: number;
-  @IsNumber()
-  product_category_id: number;
 }

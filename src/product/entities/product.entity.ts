@@ -3,8 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ProductCategory } from '../../product-category/entities/product-category.entity';
 
 @Entity()
 export class Product extends BaseEntity {
@@ -26,8 +29,7 @@ export class Product extends BaseEntity {
   @CreateDateColumn()
   createAt: Date;
 
-  @Column({
-    default: 0,
-  })
-  product_category_id: number;
+  @OneToOne((type) => ProductCategory)
+  @JoinColumn()
+  category: ProductCategory;
 }

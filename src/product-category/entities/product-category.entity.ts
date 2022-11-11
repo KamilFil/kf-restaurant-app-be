@@ -1,13 +1,23 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from 'src/product/entities/product.entity';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class ProductCategory extends BaseEntity {
   @PrimaryGeneratedColumn()
-  product_category_id: number;
+  id: number;
 
   @Column()
-  product_category_name: string;
+  name: string;
 
   @Column({ default: '' })
-  product_category_desc: string;
+  desc: string;
+
+  @OneToOne((type) => Product)
+  Product: Product;
 }
