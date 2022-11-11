@@ -1,5 +1,12 @@
-import { BaseEntity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
+@Entity()
 export class Product extends BaseEntity {
   @PrimaryGeneratedColumn()
   product_id: number;
@@ -7,18 +14,20 @@ export class Product extends BaseEntity {
   @Column()
   product_name: string;
 
-  @Column()
+  @Column({ default: '' })
   product_photo: string;
 
-  @Column()
+  @Column({ default: '' })
   product_photo_alt: string;
 
   @Column({ type: 'double' })
-  price: number;
+  product_price: number;
 
-  @Column({ type: 'timestamptz' })
+  @CreateDateColumn()
   createAt: Date;
 
-  @Column()
+  @Column({
+    default: 0,
+  })
   product_category_id: number;
 }
