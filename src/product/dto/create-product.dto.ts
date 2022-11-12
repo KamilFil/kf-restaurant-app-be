@@ -1,4 +1,5 @@
 import { IsNumber, IsString } from 'class-validator';
+import { ProductCategory } from '../../product-category/entities/product-category.entity';
 
 export class CreateProductDto {
   @IsString()
@@ -9,4 +10,6 @@ export class CreateProductDto {
   product_photo_alt: string;
   @IsNumber()
   product_price: number;
+  @IsNumber()
+  category: ProductCategory;
 }

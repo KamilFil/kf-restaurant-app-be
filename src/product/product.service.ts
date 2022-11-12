@@ -11,8 +11,11 @@ export class ProductService {
     product.product_price = Number(newProduct.product_price);
     product.product_photo = newProduct.product_photo;
     product.product_photo_alt = newProduct.product_photo_alt;
+    product.category = newProduct.category;
 
     await product.save();
+
+    return product;
   }
 
   async getAll() {

@@ -3,7 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -18,6 +18,6 @@ export class ProductCategory extends BaseEntity {
   @Column({ default: '' })
   desc: string;
 
-  @OneToOne((type) => Product)
-  Product: Product;
+  @OneToMany((type) => Product, (entity) => entity.category)
+  categoryId: ProductCategory[];
 }
