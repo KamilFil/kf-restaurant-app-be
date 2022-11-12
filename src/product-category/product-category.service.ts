@@ -46,6 +46,6 @@ export class ProductCategoryService {
     }
 
     await ProductCategory.delete(id);
-    return `Kategoria: ${category.name} - została usunięta`;
+    return `Kategoria ${category.name} - została usunięta`;
   }
 }
