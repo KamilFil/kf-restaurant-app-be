@@ -6,8 +6,14 @@ import { ProductCategory } from './entities/product-category.entity';
 @Injectable()
 export class ProductCategoryService {
   async createCategoryProduct(createProductCategory: CreateProductCategoryDto) {
-    const newCategory = new ProductCategory();
+    const category = await ProductCategory.findOne({
+      where: { name: createProductCategory.name },
+    });
+    if (category) {
+      throw new BadRequestException('Kategoria o podanej nazwie istnieje');
+    }
 
+    const newCategory = new ProductCategory();
     newCategory.name = createProductCategory.name;
     newCategory.desc = createProductCategory.desc;
 
