@@ -1,26 +1,51 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductCategoryDto } from './dto/create-product-category.dto';
 import { UpdateProductCategoryDto } from './dto/update-product-category.dto';
+import { ProductCategory } from './entities/product-category.entity';
 
 @Injectable()
 export class ProductCategoryService {
-  create(createProductCategoryDto: CreateProductCategoryDto) {
-    return 'This action adds a new productCategory';
+  async createCategoryProduct(createProductCategory: CreateProductCategoryDto) {
+    const newCategory = new ProductCategory();
+
+    newCategory.name = createProductCategory.name;
+    newCategory.desc = createProductCategory.desc;
+
+    await newCategory.save();
+
+    return newCategory.id;
   }
 
-  findAll() {
-    return `This action returns all productCategory`;
+  async getAll() {
+    return await ProductCategory.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} productCategory`;
+  async getOne(id: number) {
+    return await ProductCategory.findOne({ where: { id: id } });
   }
 
-  update(id: number, updateProductCategoryDto: UpdateProductCategoryDto) {
-    return `This action updates a #${id} productCategory`;
+  async updateCategoryProduct(
+    id: number,
+    updateProductCategory: UpdateProductCategoryDto,
+  ) {
+    const category = await ProductCategory.findOne({ where: { id: id } });
+
+    if (!category) {
+      throw new BadRequestException('Nie ma takiej kategorii');
+    }
+
+    await ProductCategory.update(id, updateProductCategory);
+    return updateProductCategory.name;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} productCategory`;
+  async removeProduct(id: number) {
+    const category = await ProductCategory.findOne({ where: { id: id } });
+
+    if (!category) {
+      throw new BadRequestException('Kategoria nie istnieje');
+    }
+
+    await ProductCategory.delete(id);
+    return `Kategoria: ${category.name} - została usunięta`;
   }
 }

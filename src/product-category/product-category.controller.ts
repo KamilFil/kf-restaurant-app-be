@@ -18,30 +18,37 @@ export class ProductCategoryController {
   ) {}
 
   @Post()
-  create(@Body() createProductCategoryDto: CreateProductCategoryDto) {
-    return this.productCategoryService.create(createProductCategoryDto);
+  createCategoryProduct(
+    @Body() createProductCategory: CreateProductCategoryDto,
+  ) {
+    return this.productCategoryService.createCategoryProduct(
+      createProductCategory,
+    );
   }
 
   @Get()
-  findAll() {
-    return this.productCategoryService.findAll();
+  getAll() {
+    return this.productCategoryService.getAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productCategoryService.findOne(+id);
+  getOne(@Param('id') id: string) {
+    return this.productCategoryService.getOne(+id);
   }
 
   @Patch(':id')
-  update(
+  updateCategoryProduct(
     @Param('id') id: string,
-    @Body() updateProductCategoryDto: UpdateProductCategoryDto,
+    @Body() updateProductCategory: UpdateProductCategoryDto,
   ) {
-    return this.productCategoryService.update(+id, updateProductCategoryDto);
+    return this.productCategoryService.updateCategoryProduct(
+      +id,
+      updateProductCategory,
+    );
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productCategoryService.remove(+id);
+  removeProduct(@Param('id') id: string) {
+    return this.productCategoryService.removeProduct(+id);
   }
 }

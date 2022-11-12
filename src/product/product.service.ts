@@ -19,7 +19,9 @@ export class ProductService {
   }
 
   async getAll() {
-    return await Product.find();
+    return await Product.find({
+      relations: ['category'],
+    });
   }
 
   async getOne(id: number) {
